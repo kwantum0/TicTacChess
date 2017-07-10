@@ -1,23 +1,42 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import LoginForm from './components/LoginForm.js';
 
-export default class App extends React.Component {
+/***************
+ *   SCREENS   *
+ ***************/
+
+/* LOGIN SCREEN 
+ *  displays for unauthorized users. 
+ *  user must log in, or choose anonymous.
+ */ 
+class LoginScreen extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Login',
+    title: 'Login',
+    header: null
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <LoginForm />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+/******************************
+ *   DECLARE AND RUN ROUTER   *
+ ******************************/
+const Router = StackNavigator({
+  Login: { screen: LoginScreen },
 });
+
+export default class App extends React.Component {
+  render() {
+    StatusBar.setHidden(true);
+    return (
+      <Router />
+    );
+  }
+}
