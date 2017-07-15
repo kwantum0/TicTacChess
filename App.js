@@ -1,7 +1,16 @@
+/***
+ *  App.js
+ *  Launchpoint of the app
+ *  
+ *  ToDo:
+ *    - Finish Registering Screens
+ *    - Add a global app state, and state machine
+ */
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import LoginForm from './components/LoginForm.js';
+import LoginScreen from './components/LoginScreen.js';
+import Game from './components/Game.js';
 
 /***************
  *   SCREENS   *
@@ -11,25 +20,24 @@ import LoginForm from './components/LoginForm.js';
  *  displays for unauthorized users. 
  *  user must log in, or choose anonymous.
  */ 
-class LoginScreen extends React.Component {
-  static navigationOptions = {
-    tabBarLabel: 'Login',
-    title: 'Login',
-    header: null
-  };
 
-  render() {
-    return (
-      <LoginForm />
-    );
-  }
-}
+/* OFFLINE GAME
+ *  user vs a friend on the same device 
+ */ 
+
 
 /******************************
  *   DECLARE AND RUN ROUTER   *
  ******************************/
 const Router = StackNavigator({
-  Login: { screen: LoginScreen },
+  Login: { 
+    screen: LoginScreen,
+    headerMode: 'none' 
+  },
+  PlayOffline: { 
+    screen: Game,
+    headerMode: 'none'  
+  }
 });
 
 export default class App extends React.Component {

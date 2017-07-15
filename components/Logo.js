@@ -1,11 +1,24 @@
+/***
+ *  Logo.js
+ *  Contains the methods and data for laying out the dynamic logo
+ *  
+ *  ToDo:
+ *    - Make logo size change with viewport size
+ *    - Redesign finishBuildingArrangment() so worst case is more efficient
+ *    - Refactor chooseRandomElement() into Globally Available Utility Class
+ *    - Place render elements into a loop. Use array for styles
+ *    - Add drag and drog piece feature for menu item selection
+ */
 import React from 'react';
 import { StyleSheet, Animated, Text, View, Image } from 'react-native';
 
 export default class Logo extends React.Component {
+  // Initial State
   state = {
     fadeAnim: new Animated.Value(0),
     titles: this.titleGenerator()
-  }
+  };
+  // Start / Restart Animation after Refresh
   componentDidMount(){
     Animated.timing(
       this.state.fadeAnim,
@@ -15,7 +28,8 @@ export default class Logo extends React.Component {
       }
     ).start();
   }
-  componentDidUpdate(){
+  componentWillUpdate(){
+    // possibly move to refresh() if component needs to update without animating
     Animated.timing(
       this.state.fadeAnim,
       {
@@ -133,6 +147,9 @@ class Auth {
   }
 }
 
+/****************
+ *    STYLES    *
+ ****************/
 const styles = StyleSheet.create({
   logo:{
     fontSize: 40,
@@ -147,7 +164,7 @@ const styles = StyleSheet.create({
     opacity: 0.7
   },
   grid: {
-    width: 400,
+    width: 400, // Make dynamic
     aspectRatio: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -240,4 +257,4 @@ const TitleArrangementOptions = [
   {titlesCount:3,arrangement:[0,0,0,-1,0,-1,0,-1,0]},
   {titlesCount:3,arrangement:[0,0,0,0,-1,-1,-1,0,0]},
   {titlesCount:3,arrangement:[0,0,0,-1,0,0,-1,0,-1]},
-]
+];
